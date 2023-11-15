@@ -1,13 +1,9 @@
 import java.util.Scanner;
-
-// Интерфейс за кафе
 interface Coffee {
     void grindCoffee();
     void makeCoffee();
     void pourIntoCup();
 }
-
-// Реализация на Espresso
 class Espresso implements Coffee {
     @Override
     public void grindCoffee() {
@@ -24,8 +20,6 @@ class Espresso implements Coffee {
         System.out.println("Сипване на еспресо в чаша");
     }
 }
-
-// Реализация на Cappuccino
 class Cappuccino implements Coffee {
     @Override
     public void grindCoffee() {
@@ -43,7 +37,6 @@ class Cappuccino implements Coffee {
     }
 }
 
-// Реализация на Americano
 class Americano implements Coffee {
     @Override
     public void grindCoffee() {
@@ -61,7 +54,6 @@ class Americano implements Coffee {
     }
 }
 
-// Фабричен клас за създаване на различни видове кафе
 class CoffeeFactory {
     public static Coffee createCoffee(String type) {
         switch (type.toLowerCase()) {
@@ -76,22 +68,16 @@ class CoffeeFactory {
         }
     }
 }
-
-// Пример за използване на фабричния клас
 public class coffeeApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Добре дошли в нашия кафене!");
-
-        // Избор на вид кафе
         System.out.println("Моля, изберете вид кафе: (espresso/cappuccino/americano)");
         String coffeeType = scanner.nextLine();
 
-        // Създаване на кафе чрез фабричния клас
         Coffee coffee = CoffeeFactory.createCoffee(coffeeType);
 
-        // Поръчване на кафето и извикване на методите
         orderAndMakeCoffee(coffee);
 
         scanner.close();
