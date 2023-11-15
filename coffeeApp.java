@@ -1,33 +1,67 @@
 import java.util.Scanner;
 
+// Интерфейс за кафе
 interface Coffee {
-    void prepare();
+    void grindCoffee();
+    void makeCoffee();
+    void pourIntoCup();
 }
 
+// Реализация на Espresso
 class Espresso implements Coffee {
-    public void prepare() {
+    @Override
+    public void grindCoffee() {
         System.out.println("Смилане на еспресо зърната");
-        System.out.println("Прави се");
-        System.out.println("Сипване на еспресото в чашка");
+    }
+
+    @Override
+    public void makeCoffee() {
+        System.out.println("Приготвяне на еспресо");
+    }
+
+    @Override
+    public void pourIntoCup() {
+        System.out.println("Сипване на еспресо в чаша");
     }
 }
 
+// Реализация на Cappuccino
 class Cappuccino implements Coffee {
-    public void prepare() {
+    @Override
+    public void grindCoffee() {
         System.out.println("Смилане на капучино зърната");
-        System.out.println("Прави се");
-        System.out.println("Сипване на капучиното в чашка");
+    }
+
+    @Override
+    public void makeCoffee() {
+        System.out.println("Приготвяне на капучино");
+    }
+
+    @Override
+    public void pourIntoCup() {
+        System.out.println("Сипване на капучино в чаша");
     }
 }
 
+// Реализация на Americano
 class Americano implements Coffee {
-    public void prepare() {
+    @Override
+    public void grindCoffee() {
         System.out.println("Смилане на американо зърната");
-        System.out.println("Прави се");
-        System.out.println("Сипване на американото в чашка");
+    }
+
+    @Override
+    public void makeCoffee() {
+        System.out.println("Приготвяне на американо");
+    }
+
+    @Override
+    public void pourIntoCup() {
+        System.out.println("Сипване на американо в чаша");
     }
 }
 
+// Фабричен клас за създаване на различни видове кафе
 class CoffeeFactory {
     public static Coffee createCoffee(String type) {
         switch (type.toLowerCase()) {
@@ -38,28 +72,36 @@ class CoffeeFactory {
             case "americano":
                 return new Americano();
             default:
-                throw new IllegalArgumentException("Сори пи4,нямаме таковаа кафе: " + type);
+                throw new IllegalArgumentException("Сори пи4,нямаме такова кафе :(: " + type);
         }
     }
 }
 
+// Пример за използване на фабричния клас
 public class coffeeApp {
     public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Добре дошли в нашия кафене!");
+        Scanner scanner = new Scanner(System.in);
 
-            System.out.println("Моля, изберете вид кафе: (espresso/cappuccino/americano)");
-            String coffeeType = scanner.nextLine();
+        System.out.println("Добре дошли в нашия кафене!");
 
-            Coffee coffee = CoffeeFactory.createCoffee(coffeeType);
+        // Избор на вид кафе
+        System.out.println("Моля, изберете вид кафе: (espresso/cappuccino/americano)");
+        String coffeeType = scanner.nextLine();
 
-            orderAndMakeCoffee(coffee);
-        }
+        // Създаване на кафе чрез фабричния клас
+        Coffee coffee = CoffeeFactory.createCoffee(coffeeType);
+
+        // Поръчване на кафето и извикване на методите
+        orderAndMakeCoffee(coffee);
+
+        scanner.close();
     }
 
     private static void orderAndMakeCoffee(Coffee coffee) {
         System.out.println("Вашата поръчка: " + coffee.getClass().getSimpleName());
-        coffee.prepare();
+        coffee.grindCoffee();
+        coffee.makeCoffee();
+        coffee.pourIntoCup();
         System.out.println("Добър апетит!");
     }
 }
